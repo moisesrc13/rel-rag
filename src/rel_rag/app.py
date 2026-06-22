@@ -33,7 +33,7 @@ def ask_gemini_rag(user_question: str) -> str:
           (SELECT "{safe_question}" AS content)
         )
       ),
-      top_k => 3,
+      top_k => 5,
       distance_type => 'COSINE'
     );
     """
@@ -76,7 +76,7 @@ def ask_gemini_rag(user_question: str) -> str:
             contents=prompt,
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
-                temperature=0.2,  # Low temperature keeps answers factual and strictly grounded
+                thinking_level="medium",
                 max_output_tokens=8192,
             ),
         )
@@ -91,7 +91,8 @@ def ask_gemini_rag(user_question: str) -> str:
 # Example Application Call
 # =====================================================================
 if __name__ == "__main__":
-    user_prompt = "what is the Automatic Spray Valve KA-2?"
+    # user_prompt = "what is the Automatic Spray Valve KA-2?"
+    user_prompt = "describe the Hose installation for Automatic Spray Valve KA-2"
     print(f"User Question: {user_prompt}\n")
 
     final_answer = ask_gemini_rag(user_prompt)
