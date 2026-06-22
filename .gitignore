@@ -3,7 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
 certs/
-
+.vscode/
 ### Python ###
 running
 # Byte-compiled / optimized / DLL files

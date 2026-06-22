@@ -50,15 +50,18 @@ def ask_gemini_rag(user_question: str) -> str:
             return "No matching documentation found in your corporate bucket."
 
         context_str = "\n---\n".join(retrieved_chunks)
+        # print(f"context \n\n {context_str}")
 
         # 4. Construct the prompt for Gemini Pro
-        system_instruction = """
-            You are an expert support analyst assistant on valve and pumping systems.
-            The application of the pumping systems include: automotive, robotics and industrial spraying.
-            Your task is to help our technical support team to answer questions
-            related to maintenance, warranty, installation, operation, use cases and possible errors
-            on our pumping systems.
-            """
+        system_instruction = (
+            "You are an expert support analyst assistant on valve and pumping systems."
+            "The application of the pumping systems include: automotive, robotics and industrial spraying."
+            "Your task is to help our technical support team to answer questions"
+            "related to maintenance, warranty, installation, operation, use cases and possible errors"
+            "on our pumping systems."
+            "Keep your response concise and under 3 to 5 paragraphs. If you cannot find the answer in the context, say "
+            "'I'm sorry, I can't find the information in the company documentation'."
+        )
 
         prompt = f"""
         USER QUESTION: {user_question}
@@ -74,6 +77,7 @@ def ask_gemini_rag(user_question: str) -> str:
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
                 temperature=0.2,  # Low temperature keeps answers factual and strictly grounded
+                max_output_tokens=8192,
             ),
         )
 
@@ -87,7 +91,7 @@ def ask_gemini_rag(user_question: str) -> str:
 # Example Application Call
 # =====================================================================
 if __name__ == "__main__":
-    user_prompt = "what is the Automatic Spray Valve KA-2"
+    user_prompt = "what is the Automatic Spray Valve KA-2?"
     print(f"User Question: {user_prompt}\n")
 
     final_answer = ask_gemini_rag(user_prompt)
