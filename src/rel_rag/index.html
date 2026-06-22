@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Widget Bootstrap</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f6f9; padding: 40px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+
+        /* Floating position style for the widget */
+        gen-search-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+        }
+    </style>
+    <!-- Load the Google Script CDN -->
+    <script src="https://cloud.google.com/ai-platform/agent-builder/web-widget.js" defer></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Secure Widget Testing</h1>
+        <p>The widget is being generated dynamically after authorization headers clear.</p>
+    </div>
+
+    <!-- The target container where our widget will be safely appended -->
+    <div id="widget-holder"></div>
+
+    <script>
+        // 1. Paste your freshly generated gcloud token here
+        const ACCESS_TOKEN = "xxxx";
+        const CONFIG_ID = "cd8f7acf-5261-4fca-8624-574d683ac1cf";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // 2. Programmatically construct the widget element before it touches the DOM
+            const widget = document.createElement('gen-search-widget');
+            widget.setAttribute('configId', CONFIG_ID);
+            widget.setAttribute('placeholder', 'Ask a support question...');
+
+            // 3. SECURELY ATTACH THE TOKEN FIRST BEFORE ELEMENT RENDERS
+            widget.authToken = ACCESS_TOKEN;
+
+            // 4. Append to document — triggers request immediately with bearer headers attached
+            document.getElementById('widget-holder').appendChild(widget);
+            console.log("Widget successfully injected with authorization headers.");
+        });
+    </script>
+
+</body>
+</html>
