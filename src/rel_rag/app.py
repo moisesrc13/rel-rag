@@ -59,8 +59,6 @@ def ask_gemini_rag(user_question: str) -> str:
             "Your task is to help our technical support team to answer questions"
             "related to maintenance, warranty, installation, operation, use cases and possible errors"
             "on our pumping systems."
-            "Keep your response concise and under 3 to 5 paragraphs. If you cannot find the answer in the context, say "
-            "'I'm sorry, I can't find the information in the company documentation'."
         )
 
         prompt = f"""
@@ -76,8 +74,11 @@ def ask_gemini_rag(user_question: str) -> str:
             contents=prompt,
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
-                thinking_level="medium",
                 max_output_tokens=8192,
+                thinking_config=types.ThinkingConfig(
+                    thinking_level="medium",
+                    # thinking_budget=4096 # 0 -> Completely turns off reasoning loops
+                ),
             ),
         )
 
