@@ -31,7 +31,7 @@ relant_conversational_agent_vertex_ai_search_agent = LlmAgent(
     instruction="Use the VertexAISearchTool to find information using Vertex AI Search.",
     tools=[
         VertexAiSearchTool(
-            data_store_id="projects/relant-rag-494516/locations/global/collections/default_collection/dataStores/relant-rag-bigquery-datastore_1781904794634"
+            data_store_id="projects/relant-rag-494516/locations/global/collections/default_collection/dataStores/relant-rag-bigquery-datastore-v2_1782258681245"
         )
     ],
 )

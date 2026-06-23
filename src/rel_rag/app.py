@@ -92,8 +92,9 @@ def ask_gemini_rag(user_question: str) -> str:
 # Example Application Call
 # =====================================================================
 if __name__ == "__main__":
-    # user_prompt = "what is the Automatic Spray Valve KA-2?"
-    user_prompt = "describe the Hose installation for Automatic Spray Valve KA-2?"
+    user_prompt = "what is the Automatic Spray Valve KA-2?"
+    # user_prompt = "describe the Hose installation for Automatic Spray Valve KA-2?"
+    # user_prompt = "what is Automatic spray valve MFS and how can be used?"
     print(f"User Question: {user_prompt}\n")
 
     final_answer = ask_gemini_rag(user_prompt)
